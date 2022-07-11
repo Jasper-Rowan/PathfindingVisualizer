@@ -4,5 +4,6 @@
     margin: 0;
     width: var(--size);
     height: var(--size);
+    flex-grow: 1;
     /* display: inline-block; */
 }

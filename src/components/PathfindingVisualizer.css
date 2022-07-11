@@ -1,7 +1,7 @@
 .gridContainer {
     border: solid red;
-    height: 200px;
-    width: 200px;
+    height: 400px;
+    width: 400px;
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: row wrap;
 }
