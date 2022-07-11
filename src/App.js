@@ -5,7 +5,7 @@ import PathfindingVisualizer from './components/PathfindingVisualizer';
 function App() {
 
   return (
-    <div className="App" style={{border: "solid red"}}>
+    <div className="App">
       <PathfindingVisualizer></PathfindingVisualizer>
     </div>
   );

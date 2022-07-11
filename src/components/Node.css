@@ -1,5 +1,8 @@
 .node {
-    border: solid 3px thistle; 
-    width: 25px;
-    height: 25px;
+    --size: 16px;
+    border: solid 2px thistle; 
+    margin: 0;
+    width: var(--size);
+    height: var(--size);
+    /* display: inline-block; */
 }
