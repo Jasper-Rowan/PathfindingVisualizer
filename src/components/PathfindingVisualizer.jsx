@@ -10,19 +10,17 @@ const PathfindingVisualizer = () => {
   const gridRows = [];
   const gridCols = [];
   for (let i = 0; i < GRID_ROWS; i++) 
-    gridRows.push(i)
+    gridRows.push(i);
   for (let j = 0; j < GRID_COLS; j++) 
-      gridCols.push(j);
-  
-    
+    gridCols.push(j);
 
   return (
     <div className="gridContainer">
     {gridRows.map((i) => {
     return (
       <div style={{ display: "flex", width: "100%" }}>
-        {gridCols.map((i) => (
-          <Node></Node>
+        {gridCols.map((j) => (
+          <Node row={i} col={j} />
         ))}
       </div>
     );

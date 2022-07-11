@@ -1,7 +1,7 @@
 import './Node.css'
 
-const Node = () => {
-    return ( <div className='node' onMouseDown={() => console.log("mousedown")}></div> );
+const Node = (props) => {
+    return ( <div className='node' onMouseDown={() => console.log(`row ${props.row} col ${props.col}`)}></div> );
 }
  
 export default Node;
