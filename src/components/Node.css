@@ -7,3 +7,12 @@
     flex-grow: 1;
     /* display: inline-block; */
 }
+
+.endNode {
+    background-color: black;
+}
+
+.startNode {
+    background-color: blue;
+}
+

@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import Node from "./Node";
 import "./PathfindingVisualizer.css"
 
-const GRID_ROWS = 20
-const GRID_COLS = 20
+const GRID_ROWS = 20;
+const GRID_COLS = 20;
+
+const START_ROW = 0;
+const START_COL = 0;
+const END_ROW = 19;
+const END_COL = 19;
 
 
 const PathfindingVisualizer = () => {
@@ -14,6 +19,7 @@ const PathfindingVisualizer = () => {
     gridRows.push(i);
   for (let j = 0; j < GRID_COLS; j++) 
     gridCols.push(j);
+
 
   const [mousePressed, setMousePressed] = useState(false);
 
@@ -40,7 +46,10 @@ const PathfindingVisualizer = () => {
           col={j} 
           handleMouseDown={mouseDownFunction} 
           handleMouseEnter={mouseEnterFunction} 
-          handleMouseUp={mouseUpFunction} />
+          handleMouseUp={mouseUpFunction} 
+          isEnd={i == END_ROW && j == END_COL}
+          isStart={i == START_ROW && j == START_COL}
+          />
         ))}
       </div>
     );
