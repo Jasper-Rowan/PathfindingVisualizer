@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import Node from "./Node";
 import "./PathfindingVisualizer.css"
 
@@ -7,57 +8,98 @@ const GRID_COLS = 20;
 
 const START_ROW = 0;
 const START_COL = 0;
+
 const END_ROW = 19;
 const END_COL = 19;
 
 
 const PathfindingVisualizer = () => {
-  // const [grid, setGrid] = useState([]);
-  const gridRows = [];
-  const gridCols = [];
-  for (let i = 0; i < GRID_ROWS; i++) 
-    gridRows.push(i);
-  for (let j = 0; j < GRID_COLS; j++) 
-    gridCols.push(j);
+
+
 
 
   const [mousePressed, setMousePressed] = useState(false);
+  const [grid, setGrid] = useState([]);
 
-  const mouseDownFunction = function handleMouseDown(row, col) {
+
+  const mouseDownFunction = (row, col) => {
+    const newGrid = toggleWall(grid, row, col);
+    setGrid(newGrid);
     setMousePressed(true);
+    
     console.log(`row ${row} col ${col}`);
   }
-  const mouseEnterFunction = function handleMouseEnter(row, col) {
+  const mouseEnterFunction = (row, col) => {
     if (!mousePressed) return;
+    const newGrid = toggleWall(grid, row, col);
+    setGrid(newGrid);
     console.log(`row ${row} col ${col}`);
   }
-  const mouseUpFunction = function handleMouseUp() {
+  const mouseUpFunction = () => {
     setMousePressed(false);
   }
 
+  useEffect(() => {setGrid(createInitialGrid())},[]);
+
+  
+  console.log("this code was run");
+
   return (
     <div className="gridContainer">
-    {gridRows.map((i) => {
+    {grid.map((currentRow) => {
     return (
       <div style={{ display: "flex", width: "100%" }}>
-        {gridCols.map((j) => (
+        {currentRow.map((node) => (
           <Node 
-          row={i} 
-          col={j} 
+          row={node.row} 
+          col={node.col} 
           handleMouseDown={mouseDownFunction} 
           handleMouseEnter={mouseEnterFunction} 
           handleMouseUp={mouseUpFunction} 
-          isEnd={i == END_ROW && j == END_COL}
-          isStart={i == START_ROW && j == START_COL}
+          isEnd={node.isEnd}
+          isStart={node.isStart}
+          isWall={node.isWall}
           />
         ))}
       </div>
     );
     } )}
     
-    
     </div>
   );
 }
  
+  const createNode = (row, col) => {
+    return {
+      row,
+      col,
+      isStart: row == START_ROW && col == START_COL,
+      isEnd: row == END_ROW && col == END_COL,
+      isWall: false
+    }
+  }
+
+  const createInitialGrid = () => {
+    const grid = [];
+    for (let i = 0; i < GRID_ROWS; i++) {
+      const currentRow = [];
+      for (let j = 0; j < GRID_COLS; j++) {
+        currentRow.push(createNode(i, j));
+      }
+      grid.push(currentRow);
+    } 
+    return grid;
+  }
+
+  const toggleWall = (grid, row, col) => {
+    const newGrid = grid.slice();
+    const node = newGrid[row][col];
+    const newNode = {
+      ...node,
+      isWall: !node.isWall,
+    }
+    newGrid[row][col] = newNode;
+    return newGrid;
+  } 
+
 export default PathfindingVisualizer;

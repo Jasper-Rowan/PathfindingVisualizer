@@ -15,4 +15,6 @@
 .startNode {
     background-color: blue;
 }
-
+.wallNode {
+    background-color: black;
+}
