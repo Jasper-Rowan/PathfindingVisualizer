@@ -2,21 +2,20 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import Node from "./Node";
 import "./PathfindingVisualizer.css"
+import {dijkstra} from '../algorithms/dijkstra';
 
-const GRID_ROWS = 20;
-const GRID_COLS = 20;
+
+const GRID_ROWS = 2;
+const GRID_COLS = 2;
 
 const START_ROW = 0;
 const START_COL = 0;
 
-const END_ROW = 19;
-const END_COL = 19;
+const END_ROW = 1;
+const END_COL = 1;
 
 
 const PathfindingVisualizer = () => {
-
-
-
 
   const [mousePressed, setMousePressed] = useState(false);
   const [grid, setGrid] = useState([]);
@@ -39,33 +38,48 @@ const PathfindingVisualizer = () => {
     setMousePressed(false);
   }
 
-  useEffect(() => {setGrid(createInitialGrid())},[]);
+  useEffect(() => {
+    setGrid(createInitialGrid());
+   },[]);
+
+   function visualizeDijkstras() {
+    dijkstra(grid, grid[START_ROW][START_COL], grid[END_ROW][END_COL]);
+   }
 
   
   console.log("this code was run");
 
+  
+
   return (
-    <div className="gridContainer">
-    {grid.map((currentRow) => {
-    return (
-      <div style={{ display: "flex", width: "100%" }}>
-        {currentRow.map((node) => (
-          <Node 
-          row={node.row} 
-          col={node.col} 
-          handleMouseDown={mouseDownFunction} 
-          handleMouseEnter={mouseEnterFunction} 
-          handleMouseUp={mouseUpFunction} 
-          isEnd={node.isEnd}
-          isStart={node.isStart}
-          isWall={node.isWall}
-          />
-        ))}
+    <>
+      <button style={{width:80, height:40}}
+        onClick={() => {
+          visualizeDijkstras();
+        }}
+      >dijkstra</button>
+
+      <div className="gridContainer">
+        {grid.map((currentRow) => {
+          return (
+            <div style={{ display: "flex", width: "100%" }}>
+              {currentRow.map((node) => (
+                <Node
+                  row={node.row}
+                  col={node.col}
+                  handleMouseDown={mouseDownFunction}
+                  handleMouseEnter={mouseEnterFunction}
+                  handleMouseUp={mouseUpFunction}
+                  isEnd={node.isEnd}
+                  isStart={node.isStart}
+                  isWall={node.isWall}
+                />
+              ))}
+            </div>
+          );
+        })}
       </div>
-    );
-    } )}
-    
-    </div>
+    </>
   );
 }
  
